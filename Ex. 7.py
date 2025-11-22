@@ -22,10 +22,10 @@ response1 = requests.post("https://playground.learnqa.ru/ajax/api/compare_query_
 response2 = requests.put("https://playground.learnqa.ru/ajax/api/compare_query_type", data={"method":"PUT"})
 response3 = requests.delete("https://playground.learnqa.ru/ajax/api/compare_query_type", data={"method":"DELETE"})
 
-print(response.text)
-print(response1.text)
-print(response2.text)
-print(response3.text)
+print("GET: ", response.text)
+print("POST: ", response1.text)
+print("PUT: ", response2.text)
+print("DELETE: ", response3.text)
 
 # 4 пункт.
 print("\n4. GET, POST, PUT, DELETE с разными параметрами.")
