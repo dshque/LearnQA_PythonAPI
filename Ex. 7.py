@@ -1,56 +1,80 @@
 import requests
 
-methods = ["GET", "POST", "PUT", "DELETE"]
 url = "https://playground.learnqa.ru/ajax/api/compare_query_type"
 
-# Задание 1.
-print("1. Запрос любого типа без параметра method")
-response = requests.get(url)
+# 1 пункт.
+print("1. HTTP-запрос любого типа без передачи параметров (POST).")
 
-if response.status_code == 200:
-    print("Успешно: ", response.status_code)
-    print(response.text)
-else:
-    print("Ошибка:", response.status_code)
-    print(response.text)
+response = requests.post(url)
 
-# Задание 2.
-print("2. Запрос, который делает запрос не из списка (HEAD)")
+print(response.text)
+
+# 2 пункт.
+print("\n2. HTTP-запрос не из списка (HEAD).")
+
 response = requests.head(url)
 
-if response.status_code == 200:
-    print(response.status_code)
-    print(response.text)
-else:
-    print(response.status_code)
-    print(response.text)
+print(response.text)
 
-# Задание 3.
-print("3. Запрос с правильным значением method")
+# 3 пункт.
+print("\n3. HTTP-запросы с правильным значением method.")
 
 response = requests.get(url, params={"method":"GET"})
 response1 = requests.post(url, data={"method":"POST"})
 response2 = requests.put(url, data={"method":"PUT"})
 response3 = requests.delete(url, data={"method":"DELETE"})
 
-print("GET: ", response.text, response.status_code)
-print("POST: ", response1.text, response1.status_code)
-print("PUT: ", response2.text, response2.status_code)
-print("DELETE: ", response3.text, response3.status_code)
+print("GET: ", response.text)
+print("POST: ", response1.text)
+print("PUT: ", response2.text)
+print("DELETE: ", response3.text)
 
-# Задание 4
+# 4 пункт.
+print("\n4. GET, POST, PUT, DELETE с разными параметрами.")
+# 4.1. GET
+print("4.1. GET-запрос")
+response = requests.get(url, params={"method":"GET"})
+response1 = requests.get(url, params={"method":"POST"})
+response2 = requests.get(url, params={"method":"PUT"})
+response3 = requests.get(url, params={"method":"DELETE"})
 
-for method in methods:
-    for param in methods:
-            if method == "GET":
-                response = requests.get(url, params={"method": param})
-            else:
-                response = requests.request(method, url, data={"method": param})
+print("С методом GET: ", response.text)
+print("С методом POST: ", response1.text)
+print("С методом PUT: ", response2.text)
+print("С методом DELETE: ", response3.text)
 
-            if method == param:
-                print(method, param, response.text, response.status_code)
-            else:
-                print(method, param, response.text, response.status_code)
+# 4.2. POST
+print("\n4.2. POST-запрос")
+response = requests.post(url, data={"method":"GET"})
+response1 = requests.post(url, data={"method":"POST"})
+response2 = requests.post(url, data={"method":"PUT"})
+response3 = requests.post(url, data={"method":"DELETE"})
 
+print("С методом GET: ", response.text)
+print("С методом POST: ", response1.text)
+print("С методом PUT: ", response2.text)
+print("С методом DELETE: ", response3.text)
 
+# 4.3. PUT
+print("\n4.3. PUT-запрос")
+response = requests.put(url, data={"method":"GET"})
+response1 = requests.put(url, data={"method":"POST"})
+response2 = requests.put(url, data={"method":"PUT"})
+response3 = requests.put(url, data={"method":"DELETE"})
 
+print("С методом GET: ", response.text)
+print("С методом POST: ", response1.text)
+print("С методом PUT: ", response2.text)
+print("С методом DELETE: ", response3.text)
+
+# 4.4. DELETE
+print("\n4.4. DELETE-запрос")
+response = requests.delete(url, data={"method":"GET"})
+response1 = requests.delete(url, data={"method":"POST"})
+response2 = requests.delete(url, data={"method":"PUT"})
+response3 = requests.delete(url, data={"method":"DELETE"})
+
+print("С методом GET: ", response.text) # ошибка здесь. Сервер отвечает, что всё ок, при несовпадении методов.
+print("С методом POST: ", response1.text)
+print("С методом PUT: ", response2.text)
+print("С методом DELETE: ", response3.text)
